@@ -15,9 +15,9 @@ import { AuthService } from './auth.service';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Post('registration')
-  async registerUser(@Body()) {
-    return await this.authService.registerUser();
+  @Post('signup')
+  async signup() {
+    return await this.authService.signUp();
   }
 
   @Post('login')

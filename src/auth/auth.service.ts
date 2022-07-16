@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import * as randomToken from 'rand-token';
 import * as moment from 'moment';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -27,28 +28,16 @@ export class AuthService {
     return '';
   }
 
-  public async registerUser(
-    regModel: RegistrationReqModel
-  ): Promise<RegistrationRespModel> {
-    const result = new RegistrationRespModel();
+  public async signUp(createUserDto: CreateUserDto): Promise<User> {
+    const { email, password } = createUserDto;
 
-    const errorMessage = await this.registrationValidation(regModel);
-    if (errorMessage) {
-      result.message = errorMessage;
-      result.successStatus = false;
+    const salt = await bcrypt.genSalt();
+    const hashPassword = await bcrypt.hash(password, salt);
 
-      return result;
-    }
+    const user = this.create({ email, password: hashPassword });
 
-    const newUser = new User();
-    newUser.firstName = regModel.firstName;
-    newUser.lastName = regModel.lastName;
-    newUser.email = regModel.email;
-    newUser.password = await this.getPasswordHash(regModel.password);
+    await this.save(user);
 
-    await this.user.insert(newUser);
-    result.successStatus = true;
-    result.message = 'succeess';
     return result;
   }
 

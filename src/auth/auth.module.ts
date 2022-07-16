@@ -15,7 +15,7 @@ import { AuthService } from './auth.service';
     JwtModule.register({
       secret: 'My random secret key never let others',
       signOptions: {
-        expiresIn: 30,
+        expiresIn: 3600,
       },
     }),
     PassportModule,
