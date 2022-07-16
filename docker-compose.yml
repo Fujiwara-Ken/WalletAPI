@@ -11,10 +11,10 @@ services:
         source: .
         target: /api-server
     depends_on:
-      - db-server
+      - wallet-db
 
-  db-server:
-    container_name: db-server
+  wallet-db:
+    container_name: wallet-db
     image: mysql:8.0.26
     restart: always
     ports:
