@@ -11,40 +11,24 @@ import * as moment from 'moment';
 export class AuthService {
   constructor(
     @InjectRepository(User) private user: Repository<User>,
-    private jwtService: JwtService,
+    private jwtService: JwtService
   ) {}
 
-  private async registrationValidation(
-    regModel: RegistrationReqModel,
-  ): Promise<string> {
+  private async registrationValidation(): Promise<string> {
     if (!regModel.email) {
       return "Email can't be empty";
     }
 
-    const emailRule =
-      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    if (!emailRule.test(regModel.email.toLowerCase())) {
-      return 'Invalid email';
-    }
-
-    const user = await this.user.findOne({ email: regModel.email });
+    const user = await this.user.findOne({ email });
     if (user != null && user.email) {
       return 'Email already exist';
     }
 
-    if (regModel.password !== regModel.confirmPassword) {
-      return 'Confirm password not matching';
-    }
     return '';
   }
 
-  private async getPasswordHash(password: string): Promise<string> {
-    const hash = await bcrypt.hash(password, 10);
-    return hash;
-  }
-
   public async registerUser(
-    regModel: RegistrationReqModel,
+    regModel: RegistrationReqModel
   ): Promise<RegistrationRespModel> {
     const result = new RegistrationRespModel();
 
@@ -70,7 +54,7 @@ export class AuthService {
 
   public async validateUserCredentials(
     email: string,
-    password: string,
+    password: string
   ): Promise<CurrentUser> {
     const user = await this.user.findOne({ email: email });
 
@@ -111,7 +95,7 @@ export class AuthService {
 
   public async validRefreshToken(
     email: string,
-    refreshToken: string,
+    refreshToken: string
   ): Promise<CurrentUser> {
     const currentDate = moment().day(1).format('YYYY/MM/DD');
     const user = await this.user.findOne({
@@ -134,6 +118,4 @@ export class AuthService {
 
     return currentUser;
   }
-}
-
 }

@@ -9,20 +9,20 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
-import { CurrentUser } from 'src/models/current.user';
-import { RegistrationReqModel } from 'src/models/registration.req.model';
-import { UsersService } from './users.service';
+import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
+  constructor(private authService: AuthService) {}
+
   @Post('registration')
-  async registerUser(@Body() reg: RegistrationReqModel) {
-    return await this.authService.registerUser(reg);
+  async registerUser(@Body()) {
+    return await this.authService.registerUser();
   }
 
   @Post('login')
   @UseGuards(AuthGuard('local'))
-  async login(@Req() req, @Res({ passthrough: true }) res: Response) {
+  async login(@Res({ passthrough: true }) res: Response) {
     const token = await this.authService.getJwtToken(req.user as CurrentUser);
     const refreshToken = await this.authService.getRefreshToken(
       req.user.userId
@@ -38,7 +38,7 @@ export class AuthController {
 
   @Get('fav-movies')
   @UseGuards(AuthGuard('jwt'))
-  async movies(@Req() req) {
+  async movies() {
     return ['Avatar', 'Avengers'];
   }
 }

@@ -1,16 +1,12 @@
-import {
-  BadRequestException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { UsersService } from './users.service';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class RefreshStrategy extends PassportStrategy(Strategy, 'refresh') {
-  constructor(private userService: UsersService) {
+  constructor(private authService: AuthService) {
     super({
       ignoreExpiration: true,
       passReqToCallback: true,
@@ -37,7 +33,7 @@ export class RefreshStrategy extends PassportStrategy(Strategy, 'refresh') {
     }
     const user = await this.userService.validRefreshToken(
       payload.email,
-      data.refreshToken,
+      data.refreshToken
     );
     if (!user) {
       throw new BadRequestException('token expired');
