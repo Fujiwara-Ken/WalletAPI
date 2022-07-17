@@ -1,5 +1,5 @@
 {
-  "name": "nest-api",
+  "name": "wallet-api",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -8,6 +8,10 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
+    "typeorm": "npx typeorm-ts-node-commonjs",
+    "migration:create": "npx typeorm migration:create src/migration",
+    "migration:generate": "npx typeorm-ts-node-commonjs migration:generate src/migration/${npm_config_name} -d src/data-source.ts",
+    "migration:run": "npx typeorm-ts-node-commonjs migration:run -d src/data-source.ts",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -19,10 +23,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "npx typeorm-ts-node-commonjs",
-    "migration:create": "npx typeorm migration:create src/migration/${npm_config_name}",
-    "migration:generate": "npx typeorm-ts-node-commonjs migration:generate src/migration/${npm_config_name} -d src/data-source.ts",
-    "migration:run": "npx typeorm-ts-node-commonjs migration:run -d src/data-source.ts"
+    "t": "echo username is ${npm_config_name}Taro"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
