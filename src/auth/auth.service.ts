@@ -8,13 +8,14 @@ import * as randomToken from 'rand-token';
 import * as moment from 'moment';
 
 import { CreateUserDto } from './dto/create-user.dto';
-import { CurrentUser } from './model/current.user';
 import { LoginDto } from './dto/login.dto';
+import { CurrentUser } from './model/current.user';
+import { UserRepository } from './auth.repository';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(User) private user: Repository<User>,
+    private userRepository: UserRepository,
     private jwtService: JwtService
   ) {}
 
@@ -28,20 +29,14 @@ export class AuthService {
   // }
 
   public async signUp(createUserDto: CreateUserDto): Promise<User> {
-    const { email, password } = createUserDto;
-
-    const user = this.create({ email, password });
-
-    await this.save(user);
-
-    return result;
+    return await this.userRepository.createUser(createUserDto);
   }
 
   public async validateUserCredentials(
     email: string,
     password: string
   ): Promise<CurrentUser> {
-    const user = await this.user.findOne({ email });
+    const user = await this.userRepository.findOneBy({ email });
 
     if (user == null) {
       return null;
@@ -72,7 +67,7 @@ export class AuthService {
       refreshTokenExp: moment().day(1).format('YYYY/MM/DD'),
     };
 
-    await this.user.update(userId, userDataToUpdate);
+    await this.userRepository.update(userId, userDataToUpdate);
     return userDataToUpdate.refreshToken;
   }
 
@@ -81,7 +76,7 @@ export class AuthService {
     refreshToken: string
   ): Promise<CurrentUser> {
     const currentDate = moment().day(1).format('YYYY/MM/DD');
-    const user = await this.user.findOne({
+    const user = await this.userRepository.findOne({
       where: {
         email: email,
         refreshToken: refreshToken,
