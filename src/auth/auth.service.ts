@@ -18,14 +18,14 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  private async registrationValidation(): Promise<string> {
-    const user = await this.user.findOne({ email });
-    if (user != null && user.email) {
-      return 'Email already exist';
-    }
+  // private async registrationValidation(): Promise<string> {
+  //   const user = await this.user.findOne({ email });
+  //   if (user != null && user.email) {
+  //     return 'Email already exist';
+  //   }
 
-    return '';
-  }
+  //   return '';
+  // }
 
   public async signUp(createUserDto: CreateUserDto): Promise<User> {
     const { email, password } = createUserDto;
