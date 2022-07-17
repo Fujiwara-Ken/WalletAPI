@@ -6,7 +6,10 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import * as randomToken from 'rand-token';
 import * as moment from 'moment';
+
 import { CreateUserDto } from './dto/create-user.dto';
+import { CurrentUser } from './model/current.user';
+import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
@@ -16,10 +19,6 @@ export class AuthService {
   ) {}
 
   private async registrationValidation(): Promise<string> {
-    if (!regModel.email) {
-      return "Email can't be empty";
-    }
-
     const user = await this.user.findOne({ email });
     if (user != null && user.email) {
       return 'Email already exist';
@@ -31,10 +30,7 @@ export class AuthService {
   public async signUp(createUserDto: CreateUserDto): Promise<User> {
     const { email, password } = createUserDto;
 
-    const salt = await bcrypt.genSalt();
-    const hashPassword = await bcrypt.hash(password, salt);
-
-    const user = this.create({ email, password: hashPassword });
+    const user = this.create({ email, password });
 
     await this.save(user);
 
@@ -45,7 +41,7 @@ export class AuthService {
     email: string,
     password: string
   ): Promise<CurrentUser> {
-    const user = await this.user.findOne({ email: email });
+    const user = await this.user.findOne({ email });
 
     if (user == null) {
       return null;
@@ -58,16 +54,14 @@ export class AuthService {
 
     const currentUser = new CurrentUser();
     currentUser.userId = user.userId;
-    currentUser.firstName = user.firstName;
-    currentUser.lastName = user.lastName;
     currentUser.email = user.email;
 
     return currentUser;
   }
 
-  public async getJwtToken(user: CurrentUser): Promise<string> {
+  public async login(loginDto: LoginDto): Promise<string> {
     const payload = {
-      ...user,
+      ...loginDto,
     };
     return this.jwtService.signAsync(payload);
   }
@@ -101,8 +95,6 @@ export class AuthService {
 
     const currentUser = new CurrentUser();
     currentUser.userId = user.userId;
-    currentUser.firstName = user.firstName;
-    currentUser.lastName = user.lastName;
     currentUser.email = user.email;
 
     return currentUser;

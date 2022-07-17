@@ -1,6 +1,8 @@
 # FujiwaraKen/nestjs_mysql
 
-Wallet System用APIサンプル
+Wallet System 用 API サンプル
+
+ウォレット秘密鍵の取り扱いについては、PJ 毎に変わるので、秘密鍵については このリポジトリでは 取り扱わない
 
 ## 開発環境
 
