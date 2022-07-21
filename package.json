@@ -32,7 +32,6 @@
     "@nestjs/passport": "^7.1.5",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/typeorm": "9.0.0",
-    "bcrypt": "latest",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "cookie-parser": "^1.4.5",
