@@ -25,5 +25,5 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: develop
-      MYSQL_USER: develop
+      MYSQL_USER: root
       MYSQL_PASSWORD: password

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { MoreThanOrEqual } from 'typeorm';
-import { User } from '../entities/user';
-import * as bcrypt from 'bcrypt';
+import { User } from '../entities/user.entity';
+// import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import * as randomToken from 'rand-token';
 import * as moment from 'moment';
@@ -10,6 +10,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { CurrentUser } from './model/current.user';
 import { UserRepository } from './auth.repository';
+
+// bcrypt がdockerだと使用できないhttps://qiita.com/curious_enginee/items/45f6ff65177b26971bad
 
 @Injectable()
 export class AuthService {
@@ -41,10 +43,10 @@ export class AuthService {
       return null;
     }
 
-    const isValidPassword = await bcrypt.compare(password, user.password);
-    if (!isValidPassword) {
-      return null;
-    }
+    // const isValidPassword = await bcrypt.compare(password, user.password);
+    // if (!isValidPassword) {
+    //   return null;
+    // }
 
     const currentUser = new CurrentUser();
     currentUser.userId = user.userId;
