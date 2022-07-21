@@ -16,6 +16,7 @@ services:
   wallet-db:
     container_name: wallet-db
     image: mysql:8.0.26
+    hostname: wallet-db
     restart: always
     ports:
       - '3306:3306'

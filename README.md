@@ -33,6 +33,37 @@ docker compose stop
 docker compose up
 ```
 
+### MySQL にログイン
+
+```sh
+docker exec -it wallet-db mysql -u root -p password
+```
+
+### MySQL Dump
+
+```sh
+docker exec wallet-db mysqldump -u root -ppass example > dump.sql
+```
+
+### マイグレーションの作成
+
+```sh
+# ホストから実行する場合
+docker exec -it walletapi-api-server-1 yarn create:migration user-table
+# コンテナの中で実行する場合
+$(npm bin)/ts-node -r tsconfig-paths/register $(npm bin)/typeorm migration:create -n myFooBarTable
+```
+
+### マイグレーションの実行
+
+```sh
+docker exec -it walletapi-api-server-1 yarn migrate
+# The following command revert migration
+# docker exec -it typeorm-example-api yarn migrate:revert
+# Inside Container
+yarn migrate
+```
+
 ### ヘルスチェック
 
 localhost:3000/healthcheck
