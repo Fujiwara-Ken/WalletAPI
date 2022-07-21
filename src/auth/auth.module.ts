@@ -5,13 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { RefreshStrategy } from './strategies/refresh.strategy';
-import { User } from '../entities/user';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { UserRepository } from './auth.repository';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([UserRepository]),
     JwtModule.register({
       secret: 'My random secret key never let others',
       signOptions: {
