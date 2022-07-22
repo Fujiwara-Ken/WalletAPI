@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
+import { User } from 'src/entities/user.entity';
 import { AuthService } from './auth.service';
 
 import { CreateUserDto } from './dto/create-user.dto';
@@ -11,7 +12,8 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('signup')
-  async signup(createUserDto: CreateUserDto) {
+  async signup(@Body() createUserDto: CreateUserDto): Promise<User> {
+    console.log(createUserDto);
     return await this.authService.signUp(createUserDto);
   }
 

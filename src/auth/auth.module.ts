@@ -7,11 +7,11 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { RefreshStrategy } from './strategies/refresh.strategy';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { UserRepository } from './auth.repository';
+import { AuthRepository } from './auth.repository';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserRepository]),
+    TypeOrmModule.forFeature([AuthRepository]),
     JwtModule.register({
       secret: 'My random secret key never let others',
       signOptions: {

@@ -1,9 +1,10 @@
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
+import { AppDataSource } from 'src/data-source';
 import { CreateUserDto } from './dto/create-user.dto';
 // import * as bcrypt from 'bcrypt';
 
-export class UserRepository extends Repository<User> {
+export class AuthRepository extends Repository<User> {
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     const { email, password } = createUserDto;
     // const salt = await bcrypt.genSalt();

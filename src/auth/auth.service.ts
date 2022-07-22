@@ -6,17 +6,19 @@ import { JwtService } from '@nestjs/jwt';
 import * as randomToken from 'rand-token';
 import * as moment from 'moment';
 
+import { AppDataSource } from 'src/data-source';
+
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { CurrentUser } from './model/current.user';
-import { UserRepository } from './auth.repository';
+import { AuthRepository } from './auth.repository';
 
 // bcrypt がdockerだと使用できないhttps://qiita.com/curious_enginee/items/45f6ff65177b26971bad
 
 @Injectable()
 export class AuthService {
   constructor(
-    private userRepository: UserRepository,
+    private authRepository: AuthRepository,
     private jwtService: JwtService
   ) {}
 
@@ -30,14 +32,22 @@ export class AuthService {
   // }
 
   public async signUp(createUserDto: CreateUserDto): Promise<User> {
-    return await this.userRepository.createUser(createUserDto);
+    // const { email, password } = createUserDto;
+    console.log(createUserDto);
+
+    const user = new User();
+
+    user.email = createUserDto.email;
+    user.password = createUserDto.password;
+
+    return await AppDataSource.manager.save(user);
   }
 
   public async validateUserCredentials(
     email: string,
     password: string
   ): Promise<CurrentUser> {
-    const user = await this.userRepository.findOneBy({ email });
+    const user = await this.authRepository.findOneBy({ email });
 
     if (user == null) {
       return null;
@@ -68,7 +78,7 @@ export class AuthService {
       refreshTokenExp: moment().day(1).format('YYYY/MM/DD'),
     };
 
-    await this.userRepository.update(userId, userDataToUpdate);
+    await this.authRepository.update(userId, userDataToUpdate);
     return userDataToUpdate.refreshToken;
   }
 
@@ -77,7 +87,7 @@ export class AuthService {
     refreshToken: string
   ): Promise<CurrentUser> {
     const currentDate = moment().day(1).format('YYYY/MM/DD');
-    const user = await this.userRepository.findOne({
+    const user = await this.authRepository.findOne({
       where: {
         email: email,
         refreshToken: refreshToken,
