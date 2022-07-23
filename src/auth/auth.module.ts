@@ -13,7 +13,7 @@ import { AuthRepository } from './auth.repository';
   imports: [
     TypeOrmModule.forFeature([AuthRepository]),
     JwtModule.register({
-      secret: 'My random secret key never let others',
+      secret: 'secretKey',
       signOptions: {
         expiresIn: 3600,
       },

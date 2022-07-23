@@ -36,7 +36,7 @@ export class AuthController {
 
   @Get('login-check')
   @UseGuards(AuthGuard('jwt'))
-  async movies() {
-    return ['Avatar', 'Avengers'];
+  async success() {
+    return { message: 'login success' };
   }
 }
