@@ -34,7 +34,7 @@ export class AuthController {
     return { msg: 'success' };
   }
 
-  @Get('fav-movies')
+  @Get('login-check')
   @UseGuards(AuthGuard('jwt'))
   async movies() {
     return ['Avatar', 'Avengers'];
