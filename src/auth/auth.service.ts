@@ -6,12 +6,11 @@ import { JwtService } from '@nestjs/jwt';
 import * as randomToken from 'rand-token';
 import * as moment from 'moment';
 
-import { AppDataSource } from 'src/data-source';
-
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
-import { CurrentUser } from './model/current.user';
+import { CurrentUser } from './interface/current.user';
 import { AuthRepository } from './auth.repository';
+import { AppDataSource } from '../data-source';
 
 // bcrypt がdockerだと使用できないhttps://qiita.com/curious_enginee/items/45f6ff65177b26971bad
 
@@ -44,10 +43,11 @@ export class AuthService {
   }
 
   public async validateUserCredentials(
-    email: string,
-    password: string
+    loginDto: LoginDto
   ): Promise<CurrentUser> {
-    const user = await this.authRepository.findOneBy({ email });
+    const user = await AppDataSource.manager.findOneBy(User, {
+      email: loginDto.email,
+    });
 
     if (user == null) {
       return null;

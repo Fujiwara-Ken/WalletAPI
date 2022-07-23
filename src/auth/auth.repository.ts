@@ -8,13 +8,13 @@ export class AuthRepository extends Repository<User> {
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     const { email, password } = createUserDto;
     // const salt = await bcrypt.genSalt();
-    // const hashPassword = await bcrypt.hash(password, salt);
 
-    // const user = this.create({ email, password: hashPassword });
+    const user = new User();
 
-    const user = this.create({ email, password });
+    user.email = createUserDto.email;
+    user.password = createUserDto.password;
 
-    await this.save(user);
+    AppDataSource.manager.save(user);
     return user;
   }
 }

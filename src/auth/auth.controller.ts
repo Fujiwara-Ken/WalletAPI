@@ -28,6 +28,8 @@ export class AuthController {
       token,
     };
 
+    console.log('token', token);
+
     res.cookie('auth-cookie', secretData, { httpOnly: true });
     return { msg: 'success' };
   }
