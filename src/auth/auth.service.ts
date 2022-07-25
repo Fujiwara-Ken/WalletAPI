@@ -12,7 +12,7 @@ import { CurrentUser } from './interface/current.user';
 import { AuthRepository } from './auth.repository';
 import { AppDataSource } from '../data-source';
 
-// bcrypt がdockerだと使用できないhttps://qiita.com/curious_enginee/items/45f6ff65177b26971bad
+// bcrypt がdockerだと使用できない https://qiita.com/curious_enginee/items/45f6ff65177b26971bad
 
 @Injectable()
 export class AuthService {
