@@ -34,14 +34,10 @@ export class AuthService {
   }
 
   public async signUp(createUserDto: CreateUserDto): Promise<User> {
-    const user = new User();
-
-    user.email = createUserDto.email;
-    user.password = createUserDto.password;
-
-    return await AppDataSource.manager.save(user);
+    return await this.authRepository.createUser(createUserDto);
   }
 
+  // loginしたユーザーが正しいかチェックする関数
   public async validateUserCredentials(
     loginDto: LoginDto
   ): Promise<CurrentUser> {
