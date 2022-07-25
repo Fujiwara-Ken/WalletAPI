@@ -31,9 +31,6 @@ export class AuthService {
   // }
 
   public async signUp(createUserDto: CreateUserDto): Promise<User> {
-    // const { email, password } = createUserDto;
-    console.log(createUserDto);
-
     const user = new User();
 
     user.email = createUserDto.email;
@@ -53,6 +50,7 @@ export class AuthService {
       return null;
     }
 
+    // TODO: bcryptをdockerにinstallし下記を有効化する
     // const isValidPassword = await bcrypt.compare(password, user.password);
     // if (!isValidPassword) {
     //   return null;
