@@ -30,8 +30,7 @@ export class AuthController {
 
     console.log('token', token);
 
-    res.cookie('auth-cookie', secretData, { httpOnly: true });
-    return { msg: 'success' };
+    return res.cookie('auth-cookie', secretData, { httpOnly: true });
   }
 
   @Get('login-check')
