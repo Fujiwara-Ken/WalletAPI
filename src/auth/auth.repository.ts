@@ -6,9 +6,6 @@ import { CreateUserDto } from './dto/create-user.dto';
 
 export class AuthRepository extends Repository<User> {
   async createUser(createUserDto: CreateUserDto): Promise<User> {
-    const { email, password } = createUserDto;
-    // const salt = await bcrypt.genSalt();
-
     const user = new User();
 
     user.email = createUserDto.email;
