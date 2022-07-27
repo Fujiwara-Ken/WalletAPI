@@ -8,7 +8,7 @@ export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
   public async getTokenAmount(getTokenAmountDto: GetTokenAmountDto) {
-    const tokenAmount = getTokenAmount(getTokenAmountDto.walletAddress);
+    const tokenAmount = await getTokenAmount(getTokenAmountDto.walletAddress);
     console.log('service', tokenAmount);
     return tokenAmount;
   }

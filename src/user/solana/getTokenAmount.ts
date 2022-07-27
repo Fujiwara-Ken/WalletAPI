@@ -6,8 +6,8 @@ export const getTokenAmount = async (walletAddress: string) => {
   console.log('wallet', walletAddress);
 
   const amount = await Account.getTokenBalance(
-    mint.toPublicKey(),
-    walletAddress.toPublicKey()
+    walletAddress.toPublicKey(),
+    mint.toPublicKey()
   );
   console.log('# token history: ', amount.unwrap());
 
