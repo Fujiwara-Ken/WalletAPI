@@ -6,6 +6,7 @@ import {
   ParseIntPipe,
   Post,
 } from '@nestjs/common';
+import { User } from 'src/entities/user.entity';
 import { GetTokenAmountDto } from './dto/get-token-amount.dto';
 import { UserService } from './user.service';
 
@@ -13,12 +14,12 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get('get-user-info/:user_id')
+  @Get('get-user-info/:userId')
   async getUserInfo(
-    @Param('user_id', ParseIntPipe) user_id: number
-  ): Promise<Object> {
-    const user = await this.userService.getUserInfo(user_id);
-    return user;
+    @Param('useId', ParseIntPipe) userId: number
+  ): Promise<User> {
+    const response = await this.userService.getUserInfo(userId);
+    return response;
   }
 
   // @UseGuards(JwtAuthGuard)
