@@ -1,4 +1,4 @@
-# FujiwaraKen/nestjs_mysql
+# FujiwaraKen / Wallet API
 
 Wallet System 用 API サンプル
 
