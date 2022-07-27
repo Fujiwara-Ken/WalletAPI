@@ -11,6 +11,9 @@ export class User {
   @Column()
   password: string;
 
+  @Column()
+  wallet_address: string;
+
   @Column({ nullable: true, name: 'refreshtoken' })
   refreshToken: string;
 
