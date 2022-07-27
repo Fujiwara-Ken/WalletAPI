@@ -7,7 +7,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   // @UseGuards(JwtAuthGuard)
-  @Post('user-token')
+  @Post('get-token-amount')
   async getTokenAmount(
     @Body() getTokenAmountDto: GetTokenAmountDto
   ): Promise<any> {
