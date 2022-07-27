@@ -1,5 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
-import { User } from 'src/entities/user.entity';
+import { Body, Controller, Post } from '@nestjs/common';
 import { GetTokenAmountDto } from './dto/get-token-amount.dto';
 import { UserService } from './user.service';
 
@@ -8,11 +7,10 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   // @UseGuards(JwtAuthGuard)
-  @Post('user-token/:userId')
+  @Post('user-token')
   async getTokenAmount(
-    @Param('userId', ParseIntPipe) user_id: number
-    @Body() getTokenAmountDto: GetTokenAmountDto,
-  ): Promise<User[]> {
+    @Body() getTokenAmountDto: GetTokenAmountDto
+  ): Promise<any> {
     const user = await this.userService.getTokenAmount(getTokenAmountDto);
     return user;
   }

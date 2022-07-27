@@ -1,6 +1,7 @@
 version: '3.9'
 services:
   api-server:
+    container_name: wallet-api
     build: .
     tty: true
     restart: always

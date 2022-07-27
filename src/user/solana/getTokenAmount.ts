@@ -8,7 +8,7 @@ export const getTokenAmount = async (walletAddress: string) => {
     mint.toPublicKey(),
     walletAddress.toPublicKey()
   );
-  console.log('# token history by publish: ', amount.unwrap());
+  console.log('# token history: ', amount.unwrap());
 
-  return amount;
+  return amount.unwrap();
 };

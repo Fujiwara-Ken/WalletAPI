@@ -1,5 +1,6 @@
 import crypto from 'crypto-js';
 
+// secret key を暗号化して保存したい場合に使用
 const encrypt = async () => {
   const key = 'abcdefgh';
   const secret = '';
