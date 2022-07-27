@@ -35,6 +35,11 @@ docker compose stop
 docker compose up
 ```
 
+### yarn
+
+docker-compose exec walletapi-api-server-1 sh
+yarn install \*\*\*
+
 ### MySQL にログイン
 
 ```sh
