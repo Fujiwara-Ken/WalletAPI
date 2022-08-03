@@ -6,7 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as randomToken from 'rand-token';
 import * as moment from 'moment';
 
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from '../user/dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { CurrentUser } from './interface/current.user';
 import { AuthRepository } from './auth.repository';
@@ -31,10 +31,6 @@ export class AuthService {
     }
 
     return '';
-  }
-
-  public async signUp(createUserDto: CreateUserDto): Promise<User> {
-    return await this.authRepository.createUser(createUserDto);
   }
 
   // loginしたユーザーが正しいかチェックする関数
