@@ -12,7 +12,7 @@ const mockUser1 = {
 
 const mockUserRepository = () => ({
   find: jest.fn(),
-  findOne: jest.fn(),
+  findOneBy: jest.fn(),
   createItem: jest.fn(),
   save: jest.fn(),
   delete: jest.fn(),
@@ -39,20 +39,20 @@ describe('UserService', () => {
   describe('getUserInfo', () => {
     it('正常系', async () => {
       const expected = {
-        userId: 1,
-        email: 'aaa@email.com',
-        password: 'password',
-        wallet_address: 'walletAddresswalletAddresswalletAddress',
+        userId: mockUser1.id,
+        email: mockUser1.email,
+        password: mockUser1.password,
+        wallet_address: mockUser1.wallet_address,
       };
 
-      userRepository.findOne.mockResolvedValue(expected);
+      userRepository.getUser(expected);
       const result = await userService.getUserInfo(1);
       expect(result).toEqual(expected);
     });
 
     it('異常系: ユーザーが存在しない', async () => {
-      userRepository.findOne.mockResolvedValue(null);
-      await expect(userService.findById(100)).rejects.toThrow(
+      userRepository.getUser(null);
+      await expect(userService.getUserInfo(100)).rejects.toThrow(
         NotFoundException
       );
     });

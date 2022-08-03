@@ -1,6 +1,6 @@
-import { User } from 'src/entities/user.entity';
+import { User } from '../entities/user.entity';
 import { Repository } from 'typeorm';
-import { AppDataSource } from 'src/data-source';
+import { AppDataSource } from '../data-source';
 
 export class UserRepository extends Repository<User> {
   async getUser(userId): Promise<User> {
