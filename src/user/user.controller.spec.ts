@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { NotFoundException, Module } from '@nestjs/common';
 
 import { User } from '../entities/user.entity';
 import { UserService } from './user.service';
@@ -18,9 +17,6 @@ describe('UserService', () => {
   let userService: UserService;
   let module: TestingModule;
 
-  // beforeAll(): describeの最初に呼ばれる
-  // afterAll(): describeの最後に呼ばれる
-
   // 各`it()`/`test()`の前に呼ばれるコード
   beforeEach(async () => {
     module = await Test.createTestingModule({
@@ -31,13 +27,7 @@ describe('UserService', () => {
     userService = module.get<UserService>(UserService);
   });
 
-  // 各`it()`/`test()`の後に呼ばれるコード
-  afterEach(() => {
-    return module.close();
-  });
-
-  // it()はtest()のエイリアス
-  it('should be defined', () => {
+  it('should be definesd', () => {
     // toBeDefined()で，定義されていることを確認
     expect(userService).toBeDefined();
   });
