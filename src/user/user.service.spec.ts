@@ -2,6 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
 import { UserRepository } from './user.repository';
 import { NotFoundException } from '@nestjs/common';
+import { UserController } from './user.controller';
+import { Repository } from 'typeorm';
 
 const mockUser1 = {
   id: 1,
@@ -10,30 +12,17 @@ const mockUser1 = {
   wallet_address: 'walletAddresswalletAddresswalletAddress',
 };
 
-const mockUserRepository = () => ({
-  find: jest.fn(),
-  findOneBy: jest.fn(),
-  createItem: jest.fn(),
-  save: jest.fn(),
-  delete: jest.fn(),
-});
-
 describe('UserService', () => {
   let userService: UserService;
   let userRepository: UserRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        UserService,
-        {
-          provide: UserRepository,
-          useFactory: mockUserRepository,
-        },
-      ],
+      providers: [UserService, UserRepository],
     }).compile();
 
     userService = module.get<UserService>(UserService);
+    userRepository = module.get<UserRepository>(UserRepository);
   });
 
   describe('getUserInfo', () => {
@@ -45,7 +34,7 @@ describe('UserService', () => {
         wallet_address: mockUser1.wallet_address,
       };
 
-      userRepository.getUser(expected);
+      // userRepository.getUser(1);
       const result = await userService.getUserInfo(1);
       expect(result).toEqual(expected);
     });
