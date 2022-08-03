@@ -10,6 +10,14 @@ const mockUser1 = {
   wallet_address: 'walletAddresswalletAddresswalletAddress',
 };
 
+const mockUserRepository = () => ({
+  find: jest.fn(),
+  findOne: jest.fn(),
+  createItem: jest.fn(),
+  save: jest.fn(),
+  delete: jest.fn(),
+});
+
 describe('UserService', () => {
   let userService: UserService;
   let userRepository: UserRepository;
