@@ -9,11 +9,10 @@ import { AppTestingModule } from '../mocks/app-testing.module';
 
 const testUser = {
   userId: 1,
-  email: "test@email.com",
-  password: "password",
-  wallet_address: "walletAddress",
-}
-
+  email: 'test@email.com',
+  password: 'password',
+  wallet_address: 'walletAddress',
+};
 
 describe('UserService', () => {
   let userService: UserService;
@@ -43,17 +42,16 @@ describe('UserService', () => {
     expect(userService).toBeDefined();
   });
 
-  it('getUserInfo', async () => {
-    const createdUser = await userService.signUp()
-    const foundUser = await userService.getUserInfo(1);
-    // expect(val).toBe(expected)でvalがexpectedであることを確認
-    expect(id).toBe(1);
-    // expect(obj).toEqual(expected)でobjがexpectedと同じ要素を持つことを確認（deep-equal）
-    expect(created).toEqual(testTodo);
+  it('create user', async () => {
+    const createdUser = await userService.signUp(testUser);
+    expect(createdUser.userId).toBe(1);
+    expect(createdUser).toEqual(testUser);
   });
 
-  it('get todo', async () => {
-    const created = await service.createTodo(testTodo);
-    const found = await service.findOne(created.id);
-    expect(found).toEqual(created);
+  it('get user info', async () => {
+    const createdUser = await userService.signUp(testUser);
+    const foundedUser = await userService.getUserInfo(createdUser.userId);
+    expect(foundedUser.userId).toBe(1);
+    expect(createdUser).toEqual(testUser);
   });
+});
