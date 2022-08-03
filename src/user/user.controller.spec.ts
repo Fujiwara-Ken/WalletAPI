@@ -5,6 +5,7 @@ import { User } from '../entities/user.entity';
 import { UserService } from './user.service';
 
 import { AppTestingModule } from '../mocks/app-testing.module';
+import { UserRepository } from './user.repository';
 
 const testUser = {
   userId: 1,
@@ -21,7 +22,7 @@ describe('UserService', () => {
   beforeEach(async () => {
     module = await Test.createTestingModule({
       imports: [AppTestingModule, TypeOrmModule.forFeature([User])],
-      providers: [UserService],
+      providers: [UserService, UserRepository],
     }).compile();
 
     userService = module.get<UserService>(UserService);
