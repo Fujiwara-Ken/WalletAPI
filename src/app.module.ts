@@ -10,7 +10,7 @@ import { UserModule } from './user/user.module';
 import { SplTokenModule } from './spl-token/spl-token.module';
 import { NftModule } from './nft/nft.module';
 
-// TODO: typeorm module は env からの読み取りに変更する
+// TODO: 実際のプロダクトでは DB設定は env からの読み取りに変更する
 @Module({
   imports: [
     ConfigModule.forRoot({
