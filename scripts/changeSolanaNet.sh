@@ -19,7 +19,7 @@ fi
 
 # command
 ./solana-suite-config.js -c prd
-if [ "$PROJECT_ID" = "wallet-api" ]; thenN
+if [ "$PROJECT_ID" = "wallet-api" ]; then
   ./solana-suite-config.js nftstorage ${NFT_STORAGE_PRD_KEY}
 fi
 
