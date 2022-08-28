@@ -1,0 +1,7 @@
+openapi: '3.0.2'
+info:
+  title: WalletAPI Sample
+  version: '1.0'
+tags:
+  - name: auth
+    description: 認証
