@@ -5,3 +5,75 @@ info:
 tags:
   - name: auth
     description: 認証
+
+components:
+  schemas:
+    BadRequest:
+      title: 不正なリクエスト
+      type: object
+      properties:
+        code:
+          description: |-
+            不正なリクエストです。
+            Validationによるエラーなど、クライアントからのリクエストに誤りがあるときにこのエラーを返します。
+          type: string
+          example: 400
+        message:
+          description: 画面に表示するエラーメッセージ
+          type: string
+          example: 郵便番号の形式が違います
+    Unauthorized:
+      title: 認証されてないリクエスト
+      type: object
+      properties:
+        code:
+          description: |-
+            認証の失敗です。
+            ログインするとき、入力した内容に誤りがあるとこのエラーを返します。
+          type: string
+          example: 401
+        message:
+          description: 画面に表示するエラーメッセージ
+          type: string
+          example: 認証されていないアクセスです。
+    NotFound:
+      title: 指定のリソースが存在しない
+      type: object
+      properties:
+        code:
+          description: |-
+            リソースが見つかりません。
+            指定された条件のデータが存在しないときにこのエラーを返します。
+          type: string
+          example: 404
+        message:
+          description: 画面に表示するエラーメッセージ
+          type: string
+          example: 指定のリソースは存在しません。
+    Conflict:
+      title: リソース競合
+      type: object
+      properties:
+        code:
+          description: |-
+            リソース競合です。
+            POSTしたときに既に値が存在していたときや、PUTしたときに古い値で更新しようとしたときなどにこのエラーを返します。
+          type: string
+          example: 404
+        message:
+          description: 画面に表示するエラーメッセージ
+          type: string
+          example: 郵便番号の形式が違います
+    InternalServerError:
+      title: サーバー内エラー
+      type: object
+      properties:
+        code:
+          description: |-
+            サーバー内部でエラーが発生した場合にこのエラーを返します
+          type: string
+          example: 500
+        message:
+          description: 画面に表示するエラーメッセージ
+          type: string
+          example: システムエラーが発生しました。時間を置いてもう一度お試しください。
