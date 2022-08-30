@@ -7,11 +7,11 @@ tags:
     description: 認証
 
 paths:
-  /users:
-    get:
+  /auth:
+    post:
       tags:
-        - user
-      summary: 従業員情報取得
+        - auth
+      summary: ログイン
       responses:
         '200':
           description: 成功
