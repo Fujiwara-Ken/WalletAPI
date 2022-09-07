@@ -97,3 +97,23 @@ components:
           description: 画面に表示するエラーメッセージ
           type: string
           example: システムエラーが発生しました。時間を置いてもう一度お試しください。
+
+    User:
+      title: ユーザ
+      type: object
+      properties:
+        user_id:
+          description: ユーザーID
+          type: number
+          nullable: false
+        wallet_address:
+          description: ウォレットアドレス
+          type: string
+          nullable: false
+          maxLength: 255
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
