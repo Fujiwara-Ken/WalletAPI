@@ -17,10 +17,10 @@ const encrypt = async () => {
 };
 
 encrypt()
-  .then((res) => {
+  .then(res => {
     console.log({ res });
   })
-  .catch((er) => {
+  .catch(er => {
     console.error(er);
     process.exit(-1);
   })
