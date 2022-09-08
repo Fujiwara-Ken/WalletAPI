@@ -28,4 +28,5 @@ export class UserController {
     const userTokenAmount = await this.userService.getTokenAmount(getTokenAmountDto);
     return userTokenAmount;
   }
+
 }

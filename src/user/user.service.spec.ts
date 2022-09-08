@@ -41,9 +41,7 @@ describe('UserService', () => {
 
     it('異常系: ユーザーが存在しない', async () => {
       userRepository.getUser(null);
-      await expect(userService.getUserInfo(100)).rejects.toThrow(
-        NotFoundException
-      );
+      await expect(userService.getUserInfo(100)).rejects.toThrow(NotFoundException);
     });
   });
 
