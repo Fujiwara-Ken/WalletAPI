@@ -22,11 +22,16 @@ export class UserController {
     return res;
   }
 
+  @Post('create-wallet')
+  async createWallet(@Param('useId', ParseIntPipe) userId: number) {
+    const res = await this.userService.createWallet();
+    return res;
+  }
+
   // @UseGuards(JwtAuthGuard)
   @Post('get-token-amount')
   async getTokenAmount(@Body() getTokenAmountDto: GetTokenAmountDto): Promise<TokenAmount> {
     const userTokenAmount = await this.userService.getTokenAmount(getTokenAmountDto);
     return userTokenAmount;
   }
-
 }

@@ -13,6 +13,10 @@ export class UserService {
     return await this.userRepository.createUser(createUserDto);
   }
 
+  public async createWallet() {
+    return await 'success';
+  }
+
   public async getUserInfo(userId: number): Promise<User> {
     const res = await this.userRepository.getUser(userId);
 
