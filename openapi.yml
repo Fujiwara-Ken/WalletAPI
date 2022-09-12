@@ -79,7 +79,7 @@ components:
             リソース競合です。
             POSTしたときに既に値が存在していたときや、PUTしたときに古い値で更新しようとしたときなどにこのエラーを返します。
           type: string
-          example: 404
+          example: 404v
         message:
           description: 画面に表示するエラーメッセージ
           type: string
