@@ -30,7 +30,7 @@ export class UserController {
 
   // @UseGuards(JwtAuthGuard)
   @Post('get-token-amount')
-  async getTokenAmount(@Body() getTokenAmountDto: GetTokenAmountDto): Promise<TokenAmount> {
+  async getTokenAmount(@Body() getTokenAmountDto: GetTokenAmountDto): Promise<any> {
     const userTokenAmount = await this.userService.getTokenAmount(getTokenAmountDto);
     return userTokenAmount;
   }
