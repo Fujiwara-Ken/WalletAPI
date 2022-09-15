@@ -10,8 +10,7 @@ async function bootstrap() {
   // corsの許可
   app.enableCors({
     origin: '*',
-    allowedHeaders:
-      'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
   });
 
   await app.listen(3000);
