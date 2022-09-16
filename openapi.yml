@@ -111,6 +111,12 @@ components:
           type: string
           nullable: false
           maxLength: 255
+        passeord:
+          description: パスワード
+          type: string
+          nullable: false
+          minLength: 8
+          maxLength: 255
         created_at:
           type: string
           format: date-time
