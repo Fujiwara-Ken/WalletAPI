@@ -14,7 +14,7 @@ export class UserService {
   }
 
   public async createWallet() {
-    return await 'success';
+    return await this.createWallet();
   }
 
   public async getUserInfo(userId: number): Promise<User> {
