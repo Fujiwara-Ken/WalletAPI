@@ -11,10 +11,7 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(AuthGuard('local'))
-  async login(
-    @Body() loginDto: LoginDto,
-    @Res({ passthrough: true }) res: Response
-  ) {
+  async login(@Body() loginDto: LoginDto, @Res({ passthrough: true }) res: Response) {
     const token = await this.authService.login(loginDto);
     const secretData = {
       token,

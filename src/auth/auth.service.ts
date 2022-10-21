@@ -16,10 +16,7 @@ import { AppDataSource } from '../data-source';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private authRepository: AuthRepository,
-    private jwtService: JwtService
-  ) {}
+  constructor(private authRepository: AuthRepository, private jwtService: JwtService) {}
 
   // メールアドレスが既に存在するか確認する関数
   private async registrationValidation(loginDto: LoginDto): Promise<string> {
@@ -34,9 +31,7 @@ export class AuthService {
   }
 
   // loginしたユーザーが正しいかチェックする関数
-  public async validateUserCredentials(
-    loginDto: LoginDto
-  ): Promise<CurrentUser> {
+  public async validateUserCredentials(loginDto: LoginDto): Promise<CurrentUser> {
     const user = await AppDataSource.manager.findOneBy(User, {
       email: loginDto.email,
     });
@@ -75,10 +70,7 @@ export class AuthService {
     return userDataToUpdate.refreshToken;
   }
 
-  public async validRefreshToken(
-    email: string,
-    refreshToken: string
-  ): Promise<CurrentUser> {
+  public async validRefreshToken(email: string, refreshToken: string): Promise<CurrentUser> {
     const currentDate = moment().day(1).format('YYYY/MM/DD');
     const user = await this.authRepository.findOne({
       where: {
