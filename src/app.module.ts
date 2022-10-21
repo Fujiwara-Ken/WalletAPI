@@ -5,10 +5,10 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { User } from './entities/user.entity';
 import { UserModule } from './user/user.module';
 import { SplTokenModule } from './spl-token/spl-token.module';
 import { NftModule } from './nft/nft.module';
+import { AppDataSource } from './data-source';
 
 // TODO: 実際のプロダクトでは DB設定は env からの読み取りに変更する
 @Module({
@@ -16,18 +16,7 @@ import { NftModule } from './nft/nft.module';
     ConfigModule.forRoot({
       envFilePath: ['.env.development.local'],
     }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'wallet-db',
-      port: 3306,
-      username: 'root',
-      password: 'password',
-      database: 'develop',
-      synchronize: true,
-      logging: false,
-      entities: [User],
-      migrations: ['src/migration/*.ts'],
-    }),
+    TypeOrmModule.forRoot(AppDataSource.options),
     AuthModule,
     UserModule,
     SplTokenModule,

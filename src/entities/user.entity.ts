@@ -12,13 +12,13 @@ export class User {
   password: string;
 
   @Column()
-  wallet_address: string;
+  walletAddress: string;
 
   @Column({ nullable: true, name: 'refreshtoken' })
-  refresh_token: string;
+  refreshToken: string;
 
   @Column({ type: 'date', nullable: true, name: 'refreshtokenexp' })
-  refresh_token_exp: string;
+  refreshTokenExp: string;
 
   @CreateDateColumn({
     type: 'timestamp',
