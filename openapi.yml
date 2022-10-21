@@ -19,6 +19,8 @@ tags:
     description: ユーザーに関するもの
   - name: nft
     description: nftに関するもの
+  - name: spl-token
+    description: spl-tokenに関するもの
 
 paths:
   '/auth/login':
@@ -27,6 +29,13 @@ paths:
         - auth
       summary: ログイン
       description: 'メールアドレスとパスワードをキーにログイン'
+      requestBody:
+        description: ログイン用リクエストボディ
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/loginUser'
       responses:
         '200':
           description: 成功
@@ -44,6 +53,8 @@ paths:
     get:
       tags:
         - auth
+      summary: ログインチェックAPI
+      description: ログインに成功した場合は success 失敗した場合401が返却される
       responses:
         '200':
           description: 成功
@@ -55,6 +66,12 @@ paths:
                   message:
                     type: string
                     example: 'success'
+        '401':
+          description: 認証されていないアクセス
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
       security:
         - Bearer: []
 
@@ -148,7 +165,8 @@ components:
           description: ウォレットアドレス
           type: string
           nullable: false
-          maxLength: 255
+          minLength: 32
+          maxLength: 44
         passeord:
           description: パスワード
           type: string
@@ -161,3 +179,9 @@ components:
         updated_at:
           type: string
           format: date-time
+
+    loginUser:
+      type: object
+      properties:
+        email: { type: string }
+        password: { type: string }
