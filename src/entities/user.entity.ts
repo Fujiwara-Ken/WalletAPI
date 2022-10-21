@@ -15,10 +15,10 @@ export class User {
   wallet_address: string;
 
   @Column({ nullable: true, name: 'refreshtoken' })
-  refreshToken: string;
+  refresh_token: string;
 
   @Column({ type: 'date', nullable: true, name: 'refreshtokenexp' })
-  refreshTokenExp: string;
+  refresh_token_exp: string;
 
   @CreateDateColumn({
     type: 'timestamp',
